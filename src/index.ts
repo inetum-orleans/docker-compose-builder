@@ -84,88 +84,79 @@ import { ConfigBuilderOptions, DefaultConfigBuilderOptions } from './options'
 import { BuilderFactory, defaultFactory } from './factory'
 
 export type ConfigV2x =
-  ConfigSchemaV20Json |
-  ConfigSchemaV21Json |
-  ConfigSchemaV22Json |
-  ConfigSchemaV23Json |
-  ConfigSchemaV24Json
+  | ConfigSchemaV20Json
+  | ConfigSchemaV21Json
+  | ConfigSchemaV22Json
+  | ConfigSchemaV23Json
+  | ConfigSchemaV24Json
 
 export type ConfigV3x =
-  ConfigSchemaV30Json |
-  ConfigSchemaV31Json |
-  ConfigSchemaV32Json |
-  ConfigSchemaV33Json |
-  ConfigSchemaV34Json |
-  ConfigSchemaV35Json |
-  ConfigSchemaV36Json |
-  ConfigSchemaV37Json
+  | ConfigSchemaV30Json
+  | ConfigSchemaV31Json
+  | ConfigSchemaV32Json
+  | ConfigSchemaV33Json
+  | ConfigSchemaV34Json
+  | ConfigSchemaV35Json
+  | ConfigSchemaV36Json
+  | ConfigSchemaV37Json
 
 export type ConfigVx = ConfigV2x | ConfigV3x
 
+export type ConfigV2 = ConfigSchemaV20Json &
+  ConfigSchemaV21Json &
+  ConfigSchemaV22Json &
+  ConfigSchemaV23Json &
+  ConfigSchemaV24Json
+export type ConfigV3 = ConfigSchemaV30Json &
+  ConfigSchemaV31Json &
+  ConfigSchemaV32Json &
+  ConfigSchemaV33Json &
+  ConfigSchemaV34Json &
+  ConfigSchemaV35Json &
+  ConfigSchemaV36Json &
+  ConfigSchemaV37Json
 
-export type ConfigV2 =
-  ConfigSchemaV20Json
-  & ConfigSchemaV21Json
-  & ConfigSchemaV22Json
-  & ConfigSchemaV23Json
-  & ConfigSchemaV24Json
-export type ConfigV3 =
-  ConfigSchemaV30Json
-  & ConfigSchemaV31Json
-  & ConfigSchemaV32Json
-  & ConfigSchemaV33Json
-  & ConfigSchemaV34Json
-  & ConfigSchemaV35Json
-  & ConfigSchemaV36Json
-  & ConfigSchemaV37Json
+export type ServiceV2 = DefinitionsServiceV20 &
+  DefinitionsServiceV21 &
+  DefinitionsServiceV22 &
+  DefinitionsServiceV23 &
+  DefinitionsServiceV24
+export type ServiceV3 = DefinitionsServiceV30 &
+  DefinitionsServiceV31 &
+  DefinitionsServiceV32 &
+  DefinitionsServiceV33 &
+  DefinitionsServiceV34 &
+  DefinitionsServiceV35 &
+  DefinitionsServiceV36 &
+  DefinitionsServiceV37
 
-export type ServiceV2 =
-  DefinitionsServiceV20
-  & DefinitionsServiceV21
-  & DefinitionsServiceV22
-  & DefinitionsServiceV23
-  & DefinitionsServiceV24
-export type ServiceV3 =
-  DefinitionsServiceV30
-  & DefinitionsServiceV31
-  & DefinitionsServiceV32
-  & DefinitionsServiceV33
-  & DefinitionsServiceV34
-  & DefinitionsServiceV35
-  & DefinitionsServiceV36
-  & DefinitionsServiceV37
+export type NetworkV2 = DefinitionsNetworkV20 &
+  DefinitionsNetworkV21 &
+  DefinitionsNetworkV22 &
+  DefinitionsNetworkV23 &
+  DefinitionsNetworkV24
+export type NetworkV3 = DefinitionsNetworkV30 &
+  DefinitionsNetworkV31 &
+  DefinitionsNetworkV32 &
+  DefinitionsNetworkV33 &
+  DefinitionsNetworkV34 &
+  DefinitionsNetworkV35 &
+  DefinitionsNetworkV36 &
+  DefinitionsNetworkV37
 
-export type NetworkV2 =
-  DefinitionsNetworkV20
-  & DefinitionsNetworkV21
-  & DefinitionsNetworkV22
-  & DefinitionsNetworkV23
-  & DefinitionsNetworkV24
-export type NetworkV3 =
-  DefinitionsNetworkV30
-  & DefinitionsNetworkV31
-  & DefinitionsNetworkV32
-  & DefinitionsNetworkV33
-  & DefinitionsNetworkV34
-  & DefinitionsNetworkV35
-  & DefinitionsNetworkV36
-  & DefinitionsNetworkV37
-
-export type VolumeV2 =
-  DefinitionsVolumeV20
-  & DefinitionsVolumeV21
-  & DefinitionsVolumeV22
-  & DefinitionsVolumeV23
-  & DefinitionsVolumeV24
-export type VolumeV3 =
-  DefinitionsVolumeV30
-  & DefinitionsVolumeV31
-  & DefinitionsVolumeV32
-  & DefinitionsVolumeV33
-  & DefinitionsVolumeV34
-  & DefinitionsVolumeV35
-  & DefinitionsVolumeV36
-  & DefinitionsVolumeV37
+export type VolumeV2 = DefinitionsVolumeV20 &
+  DefinitionsVolumeV21 &
+  DefinitionsVolumeV22 &
+  DefinitionsVolumeV23 &
+  DefinitionsVolumeV24
+export type VolumeV3 = DefinitionsVolumeV30 &
+  DefinitionsVolumeV31 &
+  DefinitionsVolumeV32 &
+  DefinitionsVolumeV33 &
+  DefinitionsVolumeV34 &
+  DefinitionsVolumeV35 &
+  DefinitionsVolumeV36 &
+  DefinitionsVolumeV37
 
 export type Config = ConfigV2 & ConfigV3
 export type Service = ServiceV2 & ServiceV3
@@ -176,16 +167,20 @@ export interface ConfigBuilderItem<I> {
   readonly item: I
   readonly options: ConfigBuilderOptions
 
-  get (): Config
+  get(): Config
 }
 
 export interface ConfigBuilderChild<I, P> extends ConfigBuilderItem<I> {
   readonly and: P
 }
 
-export function newBuilder (config?: Config,
-                            options: ConfigBuilderOptions = new DefaultConfigBuilderOptions(),
-                            factory: (v: Version) => BuilderFactory<any, any, any, any, any> = defaultFactory): ConfigBuilder {
+export function newBuilder(
+  config?: Config,
+  options: ConfigBuilderOptions = new DefaultConfigBuilderOptions(),
+  factory: (
+    v: Version
+  ) => BuilderFactory<any, any, any, any, any> = defaultFactory
+): ConfigBuilder {
   if (!config) {
     config = { version: options.version }
   }

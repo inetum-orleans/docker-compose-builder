@@ -1,12 +1,14 @@
 import { Config } from '../../src'
-import { ConfigBuilderOptions, DefaultConfigBuilderOptions } from '../../src/options'
+import {
+  ConfigBuilderOptions,
+  DefaultConfigBuilderOptions
+} from '../../src/options'
 import { BuilderFactory, DefaultBuilderFactory } from '../../src/factory'
 import { ConfigBuilder } from '../../src/config'
 import { ServiceBuilder } from '../../src/service'
 import { ServiceWithBuilder } from '../../src/service/with'
 import { ServiceVolumeBuilder } from '../../src/service/volume'
 import { Version } from '../../src/version'
-
 
 describe('ServiceBuilder', () => {
   let config: Config
@@ -46,7 +48,10 @@ describe('ServiceBuilder', () => {
   })
 
   it('adds build section using buildConfiguration option', () => {
-    options.buildConfiguration = name => ({ context: '.docker', dockerfile: `${name}/Dockerfile` })
+    options.buildConfiguration = name => ({
+      context: '.docker',
+      dockerfile: `${name}/Dockerfile`
+    })
 
     const compose = serviceBuilder.build().get()
     expect(compose).toEqual({
@@ -86,13 +91,17 @@ describe('ServiceBuilder', () => {
   })
 
   it('fails to add init if not available in version 2', () => {
-    expect(() => serviceBuilder.init()).toThrow(`Feature 'init' is not supported in version '2.0'. You should consider upgrading to version '2.2'.`)
+    expect(() => serviceBuilder.init()).toThrow(
+      `Feature 'init' is not supported in version '2.0'. You should consider upgrading to version '2.2'.`
+    )
   })
 
   it('fails to add init if not available in version 3', () => {
     config.version = Version.v30
 
-    expect(() => serviceBuilder.init()).toThrow(`Feature 'init' is not supported in version '3.0'. You should consider upgrading to version '3.7'.`)
+    expect(() => serviceBuilder.init()).toThrow(
+      `Feature 'init' is not supported in version '3.0'. You should consider upgrading to version '3.7'.`
+    )
   })
 
   it('adds init if available in version', () => {
@@ -172,7 +181,7 @@ describe('ServiceBuilder', () => {
   })
 
   it('adds environment variable with object', () => {
-    const compose = serviceBuilder.env({ 'TEST_ENV': 'test_value' }).get()
+    const compose = serviceBuilder.env({ TEST_ENV: 'test_value' }).get()
     expect(compose).toEqual({
       version: Version.v20,
       services: {
@@ -196,20 +205,16 @@ describe('ServiceBuilder', () => {
     factory = new DefaultBuilderFactory()
     configBuilder = new ConfigBuilder(config, options, factory)
     serviceBuilder = new ServiceBuilder(configBuilder, 'test')
-    const compose = serviceBuilder.env({ 'TEST_ENV': 'test_value' }).get()
+    const compose = serviceBuilder.env({ TEST_ENV: 'test_value' }).get()
 
     expect(compose).toEqual({
       version: Version.v20,
       services: {
         test: {
-          environment: {EXISTING: 'TRUE', TEST_ENV: 'test_value'}
+          environment: { EXISTING: 'TRUE', TEST_ENV: 'test_value' }
         }
       }
     })
-  })
-
-  it('fails when environment parameters are invalid', () => {
-    expect(() => (serviceBuilder as any).env(42)).toThrow('Invalid envOrKey argument')
   })
 
   it('adds network with default options', () => {

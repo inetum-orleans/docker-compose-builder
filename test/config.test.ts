@@ -1,7 +1,10 @@
 import { ConfigBuilder } from '../src/config'
 import { Config } from '../src'
 import { Version } from '../src/version'
-import { ConfigBuilderOptions, DefaultConfigBuilderOptions } from '../src/options'
+import {
+  ConfigBuilderOptions,
+  DefaultConfigBuilderOptions
+} from '../src/options'
 import { BuilderFactory, DefaultBuilderFactory } from '../src/factory'
 import { ServiceBuilder } from '../src/service'
 

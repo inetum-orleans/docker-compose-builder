@@ -24,34 +24,41 @@ describe('newBuilder', () => {
     }
 
     class CustomServiceWithBuilder extends ServiceWithBuilder {
-      constructor (builder: ServiceBuilder) {
+      constructor(builder: ServiceBuilder) {
         super(builder)
       }
 
-      yolo () {
+      yolo() {
         return 42
       }
     }
 
     class CustomBuilderFactory extends DefaultBuilderFactory {
-      constructor () {
+      constructor() {
         super()
       }
 
-      serviceWithBuilder = (serviceBuilder: ServiceBuilder) => new CustomServiceWithBuilder(serviceBuilder)
+      serviceWithBuilder = (serviceBuilder: ServiceBuilder) =>
+        new CustomServiceWithBuilder(serviceBuilder)
     }
 
-    const customFactory: (version: Version) => BuilderFactory = (version) => {
+    const customFactory: (version: Version) => BuilderFactory = version => {
       return new CustomBuilderFactory()
     }
 
-    const builder
-      = newBuilder({ version: Version.v37 }, new CustomOptions(), customFactory)
+    const builder = newBuilder(
+      { version: Version.v37 },
+      new CustomOptions(),
+      customFactory
+    )
     expect(builder).toBeInstanceOf(ConfigBuilder)
     expect(builder.options).toBeInstanceOf(CustomOptions)
     expect(builder.factory).toBeInstanceOf(CustomBuilderFactory)
 
-    const config = builder.service('test').user().get()
+    const config = builder
+      .service('test')
+      .user()
+      .get()
     expect(config.services).toBeDefined()
     expect(Object.keys(config.services!)).toEqual(['test'])
 

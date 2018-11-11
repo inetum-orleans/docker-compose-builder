@@ -2,15 +2,15 @@ import { ServiceBuilder } from './index'
 import { Feature, isFeatureSupported, Version } from '../version'
 
 export class ServiceWithBuilder {
-  constructor (private builder: ServiceBuilder) {
+  constructor(private builder: ServiceBuilder) {}
 
-  }
-
-  default (restart: boolean = true): ServiceBuilder {
+  default(restart: boolean = true): ServiceBuilder {
     this.builder.build()
     this.builder.image()
 
-    if (isFeatureSupported(Feature.init, this.builder.get().version as Version)) {
+    if (
+      isFeatureSupported(Feature.init, this.builder.get().version as Version)
+    ) {
       this.builder.init()
     }
 

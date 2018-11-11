@@ -16,14 +16,31 @@ export enum Version {
 }
 
 export const versionLine1: Version[] = [Version.v1]
-export const versionLine2: Version[] = [Version.v20, Version.v21, Version.v22, Version.v23, Version.v24]
-export const versionLine3: Version[] = [Version.v30, Version.v31, Version.v32, Version.v33, Version.v34, Version.v35, Version.v36, Version.v37]
+
+export const versionLine2: Version[] = [
+  Version.v20,
+  Version.v21,
+  Version.v22,
+  Version.v23,
+  Version.v24
+]
+
+export const versionLine3: Version[] = [
+  Version.v30,
+  Version.v31,
+  Version.v32,
+  Version.v33,
+  Version.v34,
+  Version.v35,
+  Version.v36,
+  Version.v37
+]
 
 export enum Feature {
   init = 'init'
 }
 
-export function getVersionLine (version: Version): Version[] {
+export function getVersionLine(version: Version): Version[] {
   if (versionLine3.indexOf(version) > -1) {
     return versionLine3
   }
@@ -36,7 +53,7 @@ export function getVersionLine (version: Version): Version[] {
   throw new Error(`Can\'t find version line for ${version}`)
 }
 
-export function greaterOrEqual (version: Version, thanVersion: Version) {
+export function greaterOrEqual(version: Version, thanVersion: Version) {
   const versionLine = getVersionLine(version)
   const versionIndex = versionLine.indexOf(version)
 
@@ -48,11 +65,17 @@ export function greaterOrEqual (version: Version, thanVersion: Version) {
   return versionIndex >= thanVersionIndex
 }
 
-const supportedFeatureFrom: { [feature: string]: [Version | null, Version | null, Version | null] } = {
+const supportedFeatureFrom: {
+  [feature: string]: [Version | null, Version | null, Version | null]
+} = {
   [Feature.init]: [null, Version.v22, Version.v37]
 }
 
-export function isFeatureSupported (feature: Feature, version: Version, throwIfUnsupported: boolean = false) {
+export function isFeatureSupported(
+  feature: Feature,
+  version: Version,
+  throwIfUnsupported: boolean = false
+) {
   const versions = supportedFeatureFrom[feature]
   if (!versions) {
     return true
@@ -81,12 +104,14 @@ export function isFeatureSupported (feature: Feature, version: Version, throwIfU
   return supported
 }
 
-export function assertFeatureSupported (feature: Feature, version: Version) {
+export function assertFeatureSupported(feature: Feature, version: Version) {
   return isFeatureSupported(feature, version, true)
 }
 
 export class UnsupportedFeatureError extends Error {
-  constructor (feature: Feature, version: Version, supportedVersion: Version) {
-    super(`Feature '${feature}' is not supported in version '${version}'. You should consider upgrading to version '${supportedVersion}'.`)
+  constructor(feature: Feature, version: Version, supportedVersion: Version) {
+    super(
+      `Feature '${feature}' is not supported in version '${version}'. You should consider upgrading to version '${supportedVersion}'.`
+    )
   }
 }

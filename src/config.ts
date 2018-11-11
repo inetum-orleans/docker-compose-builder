@@ -6,22 +6,28 @@ import { BuilderFactory } from './factory'
 import { ServiceWithBuilder } from './service/with'
 import { ServiceVolumeBuilder } from './service/volume'
 
-
 export class ConfigBuilder implements ConfigBuilderItem<Config> {
-  constructor (public readonly item: Config,
-               public readonly options: ConfigBuilderOptions,
-               public readonly factory: BuilderFactory<Config, ConfigBuilder, ServiceBuilder, ServiceWithBuilder, ServiceVolumeBuilder>) {
-  }
+  constructor(
+    public readonly item: Config,
+    public readonly options: ConfigBuilderOptions,
+    public readonly factory: BuilderFactory<
+      Config,
+      ConfigBuilder,
+      ServiceBuilder,
+      ServiceWithBuilder,
+      ServiceVolumeBuilder
+    >
+  ) {}
 
-  get () {
+  get() {
     return this.item
   }
 
-  service (name: string): ServiceBuilder {
+  service(name: string): ServiceBuilder {
     return this.factory.serviceBuilder(this, name)
   }
 
-  network (name: string, options: Network = {}): this {
+  network(name: string, options: Network = {}): this {
     if (!this.item.networks) {
       this.item.networks = {}
     }
@@ -29,7 +35,7 @@ export class ConfigBuilder implements ConfigBuilderItem<Config> {
     return this
   }
 
-  volume (name: string, options: Volume = null): this {
+  volume(name: string, options: Volume = null): this {
     if (!this.item.volumes) {
       this.item.volumes = {}
     }

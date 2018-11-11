@@ -49,6 +49,8 @@ describe('Version', () => {
   })
 
   it('assert feature is supported', () => {
-    expect(() => assertFeatureSupported(Feature.init, Version.v20)).toThrow(`Feature 'init' is not supported in version '2.0'. You should consider upgrading to version '2.2'.`)
+    expect(() => assertFeatureSupported(Feature.init, Version.v20)).toThrow(
+      `Feature 'init' is not supported in version '2.0'. You should consider upgrading to version '2.2'.`
+    )
   })
 })

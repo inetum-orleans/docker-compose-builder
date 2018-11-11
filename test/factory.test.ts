@@ -1,6 +1,10 @@
 import createMockInstance from 'jest-create-mock-instance'
 
-import { BuilderFactory, DefaultBuilderFactory, defaultFactory } from '../src/factory'
+import {
+  BuilderFactory,
+  DefaultBuilderFactory,
+  defaultFactory
+} from '../src/factory'
 import { Config } from '../src'
 import { ConfigBuilder } from '../src/config'
 import { ServiceBuilder } from '../src/service'
@@ -17,11 +21,13 @@ describe('defaultFactory', () => {
 })
 
 describe('DefaultBuilderFactory', () => {
-  let factory: BuilderFactory<Config,
+  let factory: BuilderFactory<
+    Config,
     ConfigBuilder,
     ServiceBuilder,
     ServiceWithBuilder,
-    ServiceVolumeBuilder>
+    ServiceVolumeBuilder
+  >
 
   beforeAll(() => {
     factory = new DefaultBuilderFactory()
@@ -57,5 +63,4 @@ describe('DefaultBuilderFactory', () => {
     const configWithBuilder = factory.serviceVolumeBuilder(serviceBuilder)
     expect(configWithBuilder).toBeInstanceOf(ServiceVolumeBuilder)
   })
-
 })

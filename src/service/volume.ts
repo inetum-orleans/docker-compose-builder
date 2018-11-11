@@ -5,17 +5,21 @@ export class ServiceVolumeBuilder {
   private item: Service
   private config: Config
 
-  constructor (private builder: ServiceBuilder) {
+  constructor(private builder: ServiceBuilder) {
     this.item = builder.item
     this.config = builder.get()
   }
 
-  project (containerDir: string, mountOptions: string = ''): ServiceBuilder {
+  project(containerDir: string, mountOptions: string = ''): ServiceBuilder {
     this.addVolume(this.builder.options.projectDir, containerDir, mountOptions)
     return this.builder
   }
 
-  relative (filepath: string, containerDir: string, mountOptions: string = ''): ServiceBuilder {
+  relative(
+    filepath: string,
+    containerDir: string,
+    mountOptions: string = ''
+  ): ServiceBuilder {
     const directory = this.builder.options.serviceDir(this.builder.name)
     if (directory) {
       filepath = `${directory}/${filepath}`
@@ -24,7 +28,11 @@ export class ServiceVolumeBuilder {
     return this.builder
   }
 
-  named (volumeName: string, containerDir: string, mountOptions: string = ''): ServiceBuilder {
+  named(
+    volumeName: string,
+    containerDir: string,
+    mountOptions: string = ''
+  ): ServiceBuilder {
     this.addVolume(volumeName, containerDir, mountOptions)
 
     if (!this.config.volumes) {
@@ -35,7 +43,7 @@ export class ServiceVolumeBuilder {
     return this.builder
   }
 
-  from (service: string, ...services: string[]) {
+  from(service: string, ...services: string[]) {
     if (!this.builder.item.volumes_from) {
       this.builder.item.volumes_from = []
     }
@@ -46,7 +54,11 @@ export class ServiceVolumeBuilder {
     }
   }
 
-  private addVolume (volumeName: string, containerDir: string, mountOptions: string = '') {
+  private addVolume(
+    volumeName: string,
+    containerDir: string,
+    mountOptions: string = ''
+  ) {
     if (!this.item.volumes) {
       this.item.volumes = []
     }
@@ -56,6 +68,5 @@ export class ServiceVolumeBuilder {
       volumeSpec = `${volumeSpec}:${mountOptions}`
     }
     this.item.volumes.push(volumeSpec)
-
   }
 }

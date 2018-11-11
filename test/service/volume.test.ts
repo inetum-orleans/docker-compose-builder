@@ -1,5 +1,8 @@
 import { Config } from '../../src'
-import { ConfigBuilderOptions, DefaultConfigBuilderOptions } from '../../src/options'
+import {
+  ConfigBuilderOptions,
+  DefaultConfigBuilderOptions
+} from '../../src/options'
 import { BuilderFactory, DefaultBuilderFactory } from '../../src/factory'
 import { ConfigBuilder } from '../../src/config'
 import { ServiceBuilder } from '../../src/service'
@@ -153,6 +156,4 @@ describe('ServiceVolumeBuilder', () => {
       }
     })
   })
-
-
 })
