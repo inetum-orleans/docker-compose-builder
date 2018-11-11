@@ -1,6 +1,6 @@
 {
   "name": "@gfi-centre-ouest/docker-compose-builder",
-  "version": "0.0.0-development",
+  "version": "0.1.0",
   "description": "Generate docker compose configuration from fluent builder api.",
   "keywords": [
     "docker",
