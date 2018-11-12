@@ -1,10 +1,14 @@
 import { Config, ConfigBuilderItem, Network, Volume } from './builder'
 
-import { ServiceBuilder } from './service/service'
+import {
+  ServiceBuilder,
+  ServiceWithBuilder,
+  ServiceVolumeBuilder
+} from './service'
 import { ConfigBuilderOptions } from './options'
 import { BuilderFactory } from './factory'
-import { ServiceWithBuilder } from './service/with'
-import { ServiceVolumeBuilder } from './service/volume'
+import {} from './service/with'
+import {} from './service/volume'
 
 export class ConfigBuilder implements ConfigBuilderItem<Config> {
   constructor(

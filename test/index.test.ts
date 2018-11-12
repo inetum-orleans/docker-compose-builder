@@ -1,10 +1,13 @@
-import { Config, newBuilder } from '../src/builder'
-import { Version } from '../src/version'
-import { BuilderFactory, DefaultBuilderFactory } from '../src/factory'
-import { ConfigBuilder } from '../src/config'
-import { DefaultConfigBuilderOptions } from '../src/options'
-import { ServiceBuilder } from '../src/service/service'
-import { ServiceWithBuilder } from '../src/service/with'
+import {
+  BuilderFactory,
+  ConfigBuilder,
+  DefaultBuilderFactory,
+  DefaultConfigBuilderOptions,
+  newBuilder,
+  ServiceBuilder,
+  ServiceWithBuilder,
+  Version
+} from '../src'
 
 describe('newBuilder', () => {
   it('creates a new ConfigBuilder instance with default initial config, options and factory', () => {

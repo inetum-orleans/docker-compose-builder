@@ -1,13 +1,14 @@
-import { Config } from '../../src/builder'
 import {
+  BuilderFactory,
+  Config,
+  ConfigBuilder,
   ConfigBuilderOptions,
-  DefaultConfigBuilderOptions
-} from '../../src/options'
-import { BuilderFactory, DefaultBuilderFactory } from '../../src/factory'
-import { ConfigBuilder } from '../../src/config'
-import { ServiceBuilder } from '../../src/service/service'
-import { Version } from '../../src/version'
-import { ServiceVolumeBuilder } from '../../src/service/volume'
+  DefaultBuilderFactory,
+  DefaultConfigBuilderOptions,
+  ServiceBuilder,
+  ServiceVolumeBuilder,
+  Version
+} from '../../src'
 
 describe('ServiceVolumeBuilder', () => {
   let config: Config

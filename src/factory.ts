@@ -1,7 +1,10 @@
 import { ConfigBuilder } from './config'
-import { ServiceBuilder } from './service/service'
-import { ServiceWithBuilder } from './service/with'
-import { ServiceVolumeBuilder } from './service/volume'
+import {
+  ServiceBuilder,
+  ServiceWithBuilder,
+  ServiceVolumeBuilder
+} from './service'
+
 import { Config } from './builder'
 import { ConfigBuilderOptions } from './options'
 import { Version } from './version'

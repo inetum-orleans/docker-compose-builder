@@ -1,12 +1,13 @@
-import { ConfigBuilder } from '../src/config'
-import { Config } from '../src/builder'
-import { Version } from '../src/version'
 import {
+  BuilderFactory,
+  Config,
+  ConfigBuilder,
   ConfigBuilderOptions,
-  DefaultConfigBuilderOptions
-} from '../src/options'
-import { BuilderFactory, DefaultBuilderFactory } from '../src/factory'
-import { ServiceBuilder } from '../src/service/service'
+  DefaultBuilderFactory,
+  DefaultConfigBuilderOptions,
+  ServiceBuilder,
+  Version
+} from '../src'
 
 describe('ConfigBuilder', () => {
   let config: Config

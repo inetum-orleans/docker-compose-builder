@@ -8,7 +8,7 @@ import {
   versionLine1,
   versionLine2,
   versionLine3
-} from '../src/version'
+} from '../src'
 
 describe('Version', () => {
   it('can compare version properly', () => {
