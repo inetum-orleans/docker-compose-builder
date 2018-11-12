@@ -12,7 +12,7 @@
     "yml"
   ],
   "main": "dist/docker-compose-builder.umd.js",
-  "module": "dist/docker-compose-builder.mjs",
+  "module": "dist/docker-compose-builder.esm.js",
   "typings": "dist/lib/index.d.ts",
   "files": [
     "dist",
