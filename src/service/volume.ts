@@ -1,5 +1,5 @@
-import { Config, Service } from '..'
-import { ServiceBuilder } from '.'
+import { Config, Service } from '../builder'
+import { ServiceBuilder } from './service'
 
 export class ServiceVolumeBuilder {
   private item: Service

@@ -1,11 +1,11 @@
-import { Config } from '../../src'
+import { Config } from '../../src/builder'
 import {
   ConfigBuilderOptions,
   DefaultConfigBuilderOptions
 } from '../../src/options'
 import { BuilderFactory, DefaultBuilderFactory } from '../../src/factory'
 import { ConfigBuilder } from '../../src/config'
-import { ServiceBuilder } from '../../src/service'
+import { ServiceBuilder } from '../../src/service/service'
 import { Version } from '../../src/version'
 import { ServiceVolumeBuilder } from '../../src/service/volume'
 

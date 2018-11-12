@@ -5,9 +5,9 @@ import {
   DefaultBuilderFactory,
   defaultFactory
 } from '../src/factory'
-import { Config } from '../src'
+import { Config } from '../src/builder'
 import { ConfigBuilder } from '../src/config'
-import { ServiceBuilder } from '../src/service'
+import { ServiceBuilder } from '../src/service/service'
 import { ServiceWithBuilder } from '../src/service/with'
 import { ServiceVolumeBuilder } from '../src/service/volume'
 import { DefaultConfigBuilderOptions } from '../src/options'

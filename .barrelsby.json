@@ -1,0 +1,7 @@
+{
+  "delete": true,
+  "directory": "./src",
+  "structure": "filesystem",
+  "location": "top",
+  "singleQuotes": true
+}

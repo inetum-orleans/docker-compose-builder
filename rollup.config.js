@@ -26,7 +26,7 @@ if (pkg.peerDependencies) {
 const libraryName = 'docker-compose-builder'
 
 export default {
-  input: `src/index.umd.ts`,
+  input: `src/index.ts`,
   output: [
     { file: pkg.main, name: camelCase(libraryName), format: 'umd', sourcemap: true, globals: globals },
     { file: pkg.module, format: 'es', sourcemap: true, globals: globals }

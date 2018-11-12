@@ -1,8 +1,8 @@
 import { ConfigBuilder } from './config'
-import { ServiceBuilder } from './service'
+import { ServiceBuilder } from './service/service'
 import { ServiceWithBuilder } from './service/with'
 import { ServiceVolumeBuilder } from './service/volume'
-import { Config } from './index'
+import { Config } from './builder'
 import { ConfigBuilderOptions } from './options'
 import { Version } from './version'
 

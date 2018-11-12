@@ -1,4 +1,4 @@
-import { Config, ConfigBuilderChild, Network, Service } from '..'
+import { Config, ConfigBuilderChild, Network, Service } from '../builder'
 import { ConfigBuilder } from '../config'
 import { ServiceWithBuilder } from './with'
 import { ServiceVolumeBuilder } from './volume'

@@ -1,4 +1,4 @@
-import { ServiceBuilder } from './index'
+import { ServiceBuilder } from './service'
 import { Feature, isFeatureSupported, Version } from '../version'
 
 export class ServiceWithBuilder {

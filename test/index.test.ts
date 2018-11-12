@@ -1,9 +1,9 @@
-import { Config, newBuilder } from '../src'
+import { Config, newBuilder } from '../src/builder'
 import { Version } from '../src/version'
 import { BuilderFactory, DefaultBuilderFactory } from '../src/factory'
 import { ConfigBuilder } from '../src/config'
 import { DefaultConfigBuilderOptions } from '../src/options'
-import { ServiceBuilder } from '../src/service'
+import { ServiceBuilder } from '../src/service/service'
 import { ServiceWithBuilder } from '../src/service/with'
 
 describe('newBuilder', () => {
