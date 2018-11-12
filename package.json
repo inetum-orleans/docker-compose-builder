@@ -1,6 +1,6 @@
 {
   "name": "@gfi-centre-ouest/docker-compose-builder",
-  "version": "0.1.0",
+  "version": "0.0.0-development",
   "description": "Generate docker compose configuration from fluent builder api.",
   "keywords": [
     "docker",
@@ -45,7 +45,8 @@
     "commit": "git-cz",
     "semantic-release": "semantic-release",
     "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "travis-deploy-once": "travis-deploy-once"
   },
   "lint-staged": {
     "{src,test}/**/*.ts": [
@@ -118,7 +119,7 @@
     "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-plugin-typescript2": "^0.17.0",
-    "semantic-release": "^15.10.7",
+    "semantic-release": "^15.10.8",
     "ts-jest": "^23.10.2",
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",

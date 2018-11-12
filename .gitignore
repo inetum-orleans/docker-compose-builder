@@ -1,2 +1,5 @@
 /node_modules
 /coverage
+/.rpt2_cache
+/docs
+/dist
