@@ -1,7 +1,6 @@
 {
   "delete": true,
   "directory": "./src",
-  "structure": "filesystem",
-  "location": "top",
+  "location": "all",
   "singleQuotes": true
 }
