@@ -17,13 +17,7 @@ export enum Version {
 
 export const versionLine1: Version[] = [Version.v1]
 
-export const versionLine2: Version[] = [
-  Version.v20,
-  Version.v21,
-  Version.v22,
-  Version.v23,
-  Version.v24
-]
+export const versionLine2: Version[] = [Version.v20, Version.v21, Version.v22, Version.v23, Version.v24]
 
 export const versionLine3: Version[] = [
   Version.v30,
@@ -71,11 +65,7 @@ const supportedFeatureFrom: {
   [Feature.init]: [null, Version.v22, Version.v37]
 }
 
-export function isFeatureSupported(
-  feature: Feature,
-  version: Version,
-  throwIfUnsupported: boolean = false
-) {
+export function isFeatureSupported(feature: Feature, version: Version, throwIfUnsupported: boolean = false) {
   const versions = supportedFeatureFrom[feature]
   if (!versions) {
     return true

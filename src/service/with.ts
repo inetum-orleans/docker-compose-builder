@@ -8,9 +8,7 @@ export class ServiceWithBuilder {
     this.builder.build()
     this.builder.image()
 
-    if (
-      isFeatureSupported(Feature.init, this.builder.get().version as Version)
-    ) {
+    if (isFeatureSupported(Feature.init, this.builder.get().version as Version)) {
       this.builder.init()
     }
 

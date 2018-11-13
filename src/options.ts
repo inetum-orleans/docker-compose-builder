@@ -24,11 +24,9 @@ export class DefaultConfigBuilderOptions implements ConfigBuilderOptions {
   projectDir: string = '.'
   portPrefix: string | null = null
 
-  buildConfiguration: (name: string) => BuildDefinition = (name: string) =>
-    `${name}/Dockerfile`
+  buildConfiguration: (name: string) => BuildDefinition = (name: string) => `${name}/Dockerfile`
   imageName: (name: string) => string = (name: string) => name
-  serviceDir: (name: string) => string = (name: string) =>
-    `${this.projectDir}/${name}`
+  serviceDir: (name: string) => string = (name: string) => `${this.projectDir}/${name}`
 }
 
 export interface ConfigBuilderOptions {

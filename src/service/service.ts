@@ -7,14 +7,10 @@ import { assertFeatureSupported, Feature, Version } from '../version'
 
 export type EnvValue = string | number | null
 
-export class ServiceBuilder
-  implements ConfigBuilderChild<Service, ConfigBuilder> {
+export class ServiceBuilder implements ConfigBuilderChild<Service, ConfigBuilder> {
   public readonly item: Service
 
-  constructor(
-    private readonly parent: ConfigBuilder,
-    public readonly name: string
-  ) {
+  constructor(private readonly parent: ConfigBuilder, public readonly name: string) {
     if (!parent.item.services) {
       parent.item.services = {}
     }
@@ -71,10 +67,7 @@ export class ServiceBuilder
     return this.environment(envOrKey, value)
   }
 
-  environment(
-    envOrKey: { [key: string]: EnvValue } | string,
-    value?: EnvValue
-  ): this {
+  environment(envOrKey: { [key: string]: EnvValue } | string, value?: EnvValue): this {
     if (typeof envOrKey === 'object') {
       for (const key of Object.keys(envOrKey)) {
         this.addEnvironment(key, envOrKey[key])
@@ -89,11 +82,7 @@ export class ServiceBuilder
     return this.network(name, options, withDefault)
   }
 
-  network(
-    name: string,
-    options: Network = {},
-    withDefault: boolean = true
-  ): this {
+  network(name: string, options: Network = {}, withDefault: boolean = true): this {
     if (withDefault) {
       this.addNetwork('default')
     }
@@ -114,22 +103,13 @@ export class ServiceBuilder
       effectivePort = '' + effectivePort
       const portItems = effectivePort.split(':', 3)
       if (portItems.length === 1) {
-        const mapped = this.prependPortPrefix(
-          portItems[0],
-          this.options.portPrefix
-        )
+        const mapped = this.prependPortPrefix(portItems[0], this.options.portPrefix)
         effectivePort = `${mapped}:${portItems[0]}`
       } else if (portItems.length === 2) {
-        const mapped = this.prependPortPrefix(
-          portItems[0],
-          this.options.portPrefix
-        )
+        const mapped = this.prependPortPrefix(portItems[0], this.options.portPrefix)
         effectivePort = `${mapped}:${portItems[1]}`
       } else if (portItems.length === 3) {
-        const mapped = this.prependPortPrefix(
-          portItems[1],
-          this.options.portPrefix
-        )
+        const mapped = this.prependPortPrefix(portItems[1], this.options.portPrefix)
         effectivePort = `${portItems[0]}:${mapped}:${portItems[2]}`
       }
     }
