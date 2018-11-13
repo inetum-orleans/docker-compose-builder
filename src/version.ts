@@ -15,11 +15,11 @@ export enum Version {
   v37 = '3.7'
 }
 
-export const versionLine1: Version[] = [Version.v1]
+const versionLine1: Version[] = [Version.v1]
 
-export const versionLine2: Version[] = [Version.v20, Version.v21, Version.v22, Version.v23, Version.v24]
+const versionLine2: Version[] = [Version.v20, Version.v21, Version.v22, Version.v23, Version.v24]
 
-export const versionLine3: Version[] = [
+const versionLine3: Version[] = [
   Version.v30,
   Version.v31,
   Version.v32,
@@ -34,7 +34,7 @@ export enum Feature {
   init = 'init'
 }
 
-export function getVersionLine(version: Version): Version[] {
+function getVersionLine(version: Version): Version[] {
   if (versionLine3.indexOf(version) > -1) {
     return versionLine3
   }

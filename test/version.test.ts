@@ -1,14 +1,4 @@
-import {
-  assertFeatureSupported,
-  Feature,
-  getVersionLine,
-  greaterOrEqual,
-  isFeatureSupported,
-  Version,
-  versionLine1,
-  versionLine2,
-  versionLine3
-} from '../src'
+import { assertFeatureSupported, Feature, greaterOrEqual, isFeatureSupported, Version } from '../src'
 
 describe('Version', () => {
   it('can compare version properly', () => {
@@ -17,25 +7,18 @@ describe('Version', () => {
     expect(greaterOrEqual(Version.v24, Version.v22)).toBeTruthy()
     expect(greaterOrEqual(Version.v24, Version.v21)).toBeTruthy()
     expect(greaterOrEqual(Version.v24, Version.v20)).toBeTruthy()
+
+    expect(greaterOrEqual(Version.v1, Version.v1)).toBeTruthy()
+
+    expect(greaterOrEqual(Version.v32, Version.v32)).toBeTruthy()
+
+    expect(() => greaterOrEqual('ble' as Version, 'bla' as Version)).toThrow()
   })
 
   it('throws an error when comparing version from different lines', () => {
     expect(() => greaterOrEqual(Version.v1, Version.v37)).toThrow()
     expect(() => greaterOrEqual(Version.v22, Version.v37)).toThrow()
     expect(() => greaterOrEqual(Version.v24, Version.v22)).not.toThrow()
-  })
-
-  it('knows version lines', () => {
-    const v1Line = getVersionLine(Version.v1)
-    expect(v1Line).toBe(versionLine1)
-
-    const v2Line = getVersionLine(Version.v23)
-    expect(v2Line).toBe(versionLine2)
-
-    const v3Line = getVersionLine(Version.v33)
-    expect(v3Line).toBe(versionLine3)
-
-    expect(() => getVersionLine('u' as Version)).toThrow()
   })
 
   it('checks if feature is supported', () => {
