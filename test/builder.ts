@@ -41,19 +41,14 @@ describe('newBuilder', () => {
         super()
       }
 
-      serviceWithBuilder = (serviceBuilder: ServiceBuilder) =>
-        new CustomServiceWithBuilder(serviceBuilder)
+      serviceWithBuilder = (serviceBuilder: ServiceBuilder) => new CustomServiceWithBuilder(serviceBuilder)
     }
 
     const customFactory: (version: Version) => BuilderFactory = version => {
       return new CustomBuilderFactory()
     }
 
-    const builder = newBuilder(
-      { version: Version.v37 },
-      new CustomOptions(),
-      customFactory
-    )
+    const builder = newBuilder({ version: Version.v37 }, new CustomOptions(), customFactory)
     expect(builder).toBeInstanceOf(ConfigBuilder)
     expect(builder.options).toBeInstanceOf(CustomOptions)
     expect(builder.factory).toBeInstanceOf(CustomBuilderFactory)

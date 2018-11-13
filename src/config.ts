@@ -3,15 +3,18 @@ import { Config, ConfigBuilderItem, Network, Volume } from './builder'
 import { ServiceBuilder } from './service'
 import { ConfigBuilderOptions } from './options'
 import { BuilderFactory } from './factory'
+import { AbstractBuilder } from './builder.internal'
 
-export class ConfigBuilder implements ConfigBuilderItem<Config> {
+export class ConfigBuilder extends AbstractBuilder<Config> implements ConfigBuilderItem<Config> {
   constructor(
     public readonly item: Config,
     public readonly options: ConfigBuilderOptions,
     public readonly factory: BuilderFactory<Config>
-  ) {}
+  ) {
+    super(item)
+  }
 
-  get() {
+  get(): Config {
     return this.item
   }
 

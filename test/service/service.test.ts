@@ -36,6 +36,98 @@ describe('ServiceBuilder', () => {
     expect(serviceVolumeBuilder).toBeInstanceOf(ServiceVolumeBuilder)
   })
 
+  it('merge another service configuration', () => {
+    config = {
+      version: Version.v20,
+      services: { test: { ports: ['8080:8080'], entrypoint: 'ep1', command: ['test1'] } }
+    }
+    options = new DefaultConfigBuilderOptions()
+    factory = new DefaultBuilderFactory()
+    configBuilder = new ConfigBuilder(config, options, factory)
+    serviceBuilder = new ServiceBuilder(configBuilder, 'test')
+
+    serviceBuilder.merge({ entrypoint: 'ep2', command: ['test2'] })
+    expect(configBuilder.get()).toEqual({
+      version: Version.v20,
+      services: {
+        test: {
+          ports: ['8080:8080'],
+          entrypoint: 'ep2',
+          command: ['test1', 'test2']
+        }
+      }
+    })
+  })
+
+  it('merge another service configuration (string to array)', () => {
+    config = {
+      version: Version.v20,
+      services: { test: { ports: ['8080:8080'], entrypoint: 'ep1', command: 'test1' } }
+    }
+    options = new DefaultConfigBuilderOptions()
+    factory = new DefaultBuilderFactory()
+    configBuilder = new ConfigBuilder(config, options, factory)
+    serviceBuilder = new ServiceBuilder(configBuilder, 'test')
+
+    serviceBuilder.merge({ entrypoint: 'ep2', command: ['test2'] })
+    expect(configBuilder.get()).toEqual({
+      version: Version.v20,
+      services: {
+        test: {
+          ports: ['8080:8080'],
+          entrypoint: 'ep2',
+          command: ['test1', 'test2']
+        }
+      }
+    })
+  })
+
+  it('merge another service configuration (array to string)', () => {
+    config = {
+      version: Version.v20,
+      services: { test: { ports: ['8080:8080'], entrypoint: 'ep1', command: ['test1'] } }
+    }
+    options = new DefaultConfigBuilderOptions()
+    factory = new DefaultBuilderFactory()
+    configBuilder = new ConfigBuilder(config, options, factory)
+    serviceBuilder = new ServiceBuilder(configBuilder, 'test')
+
+    serviceBuilder.merge({ entrypoint: 'ep2', command: 'test2' })
+    expect(configBuilder.get()).toEqual({
+      version: Version.v20,
+      services: {
+        test: {
+          ports: ['8080:8080'],
+          entrypoint: 'ep2',
+          command: ['test1', 'test2']
+        }
+      }
+    })
+  })
+
+  it('assign another service configuration', () => {
+    config = {
+      version: Version.v20,
+      services: { test: { ports: ['8080:8080'], entrypoint: 'ep1', command: ['test1'] } }
+    }
+    options = new DefaultConfigBuilderOptions()
+    factory = new DefaultBuilderFactory()
+    configBuilder = new ConfigBuilder(config, options, factory)
+    serviceBuilder = new ServiceBuilder(configBuilder, 'test')
+
+    serviceBuilder.assign({ entrypoint: 'ep2', command: ['test2'] })
+    expect(configBuilder.get()).toEqual({
+      version: Version.v20,
+      services: {
+        test: {
+          ports: ['8080:8080'],
+          entrypoint: 'ep2',
+          command: ['test2']
+        }
+      }
+    })
+  })
+
   it('adds build section', () => {
     const compose = serviceBuilder.build().get()
     expect(compose).toEqual({

@@ -21,13 +21,7 @@ describe('defaultFactory', () => {
 })
 
 describe('DefaultBuilderFactory', () => {
-  let factory: BuilderFactory<
-    Config,
-    ConfigBuilder,
-    ServiceBuilder,
-    ServiceWithBuilder,
-    ServiceVolumeBuilder
-  >
+  let factory: BuilderFactory
 
   beforeAll(() => {
     factory = new DefaultBuilderFactory()

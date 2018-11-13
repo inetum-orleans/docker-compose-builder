@@ -26,6 +26,32 @@ describe('ConfigBuilder', () => {
     expect(configBuilder.get()).toBe(config)
   })
 
+  it('merge another config', () => {
+    config = { version: Version.v20, networks: { test: { external: true } } }
+    options = new DefaultConfigBuilderOptions()
+    factory = new DefaultBuilderFactory()
+    configBuilder = new ConfigBuilder(config, options, factory)
+
+    configBuilder.merge({ networks: { test2: { external: false } } })
+    expect(configBuilder.get()).toEqual({
+      version: Version.v20,
+      networks: { test: { external: true }, test2: { external: false } }
+    })
+  })
+
+  it('assign another config', () => {
+    config = { version: Version.v20, networks: { test: { external: true } } }
+    options = new DefaultConfigBuilderOptions()
+    factory = new DefaultBuilderFactory()
+    configBuilder = new ConfigBuilder(config, options, factory)
+
+    configBuilder.assign({ networks: { test2: { external: false } } })
+    expect(configBuilder.get()).toEqual({
+      version: Version.v20,
+      networks: { test2: { external: false } }
+    })
+  })
+
   it('creates a service', () => {
     const serviceBuilder = configBuilder.service('test')
     expect(serviceBuilder).toBeInstanceOf(ServiceBuilder)
@@ -63,9 +89,7 @@ describe('ConfigBuilder', () => {
   })
 
   it('creates many networks', () => {
-    const response = configBuilder
-      .network('one', { external: true })
-      .network('two', { driver: 'testing' })
+    const response = configBuilder.network('one', { external: true }).network('two', { driver: 'testing' })
     expect(response).toBe(configBuilder)
     expect(configBuilder.get()).toEqual({
       version: Version.v20,
@@ -92,9 +116,7 @@ describe('ConfigBuilder', () => {
   })
 
   it('creates many volumes', () => {
-    const response = configBuilder
-      .volume('one', { volumeOption: 'opt1' })
-      .volume('two', { bla: 'opt2' })
+    const response = configBuilder.volume('one', { volumeOption: 'opt1' }).volume('two', { bla: 'opt2' })
     expect(response).toBe(configBuilder)
     expect(configBuilder.get()).toEqual({
       version: Version.v20,

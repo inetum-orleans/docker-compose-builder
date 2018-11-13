@@ -4,13 +4,16 @@ import { ServiceWithBuilder } from './with'
 import { ServiceVolumeBuilder } from './volume'
 import { ConfigBuilderOptions } from '../options'
 import { assertFeatureSupported, Feature, Version } from '../version'
+import { AbstractBuilder } from '../builder.internal'
 
 export type EnvValue = string | number | null
 
-export class ServiceBuilder implements ConfigBuilderChild<Service, ConfigBuilder> {
-  public readonly item: Service
-
+export class ServiceBuilder extends AbstractBuilder<Service> implements ConfigBuilderChild<Service, ConfigBuilder> {
   constructor(private readonly parent: ConfigBuilder, public readonly name: string) {
+    super(ServiceBuilder.buildItem(parent, name))
+  }
+
+  private static buildItem(parent: ConfigBuilder, name: string) {
     if (!parent.item.services) {
       parent.item.services = {}
     }
@@ -19,7 +22,7 @@ export class ServiceBuilder implements ConfigBuilderChild<Service, ConfigBuilder
       parent.item.services[name] = {}
     }
 
-    this.item = parent.item.services[name]
+    return parent.item.services[name]
   }
 
   get options(): ConfigBuilderOptions {

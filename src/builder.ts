@@ -163,10 +163,15 @@ export type Service = ServiceV2 & ServiceV3
 export type Network = NetworkV2 & NetworkV3
 export type Volume = VolumeV2 & VolumeV3
 
-export interface ConfigBuilderItem<I> {
+export interface ConfigItemContainer<I> {
   readonly item: I
-  readonly options: ConfigBuilderOptions
 
+  merge(item: Partial<I>): this
+  assign(item: Partial<I>): this
+}
+
+export interface ConfigBuilderItem<I> extends ConfigItemContainer<I> {
+  readonly options: ConfigBuilderOptions
   get(): Config
 }
 
