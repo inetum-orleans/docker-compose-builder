@@ -9,42 +9,30 @@ export function defaultFactory(version: Version) {
   return new DefaultBuilderFactory()
 }
 
-export interface BuilderFactory<
-  C = Config,
-  CB extends ConfigBuilder = ConfigBuilder,
-  SB extends ServiceBuilder = ServiceBuilder,
-  SWB extends ServiceWithBuilder = ServiceWithBuilder,
-  SVB extends ServiceVolumeBuilder = ServiceVolumeBuilder
-> {
-  builder(config: C, options: ConfigBuilderOptions): CB
+export interface BuilderFactory<C = Config> {
+  builder(config: C, options: ConfigBuilderOptions): ConfigBuilder
 
-  serviceBuilder(configBuilder: CB, name: string): SB
+  serviceBuilder(configBuilder: ConfigBuilder, name: string): ServiceBuilder
 
-  serviceWithBuilder(serviceBuilder: SB): SWB
+  serviceWithBuilder(serviceBuilder: ServiceBuilder): ServiceWithBuilder
 
-  serviceVolumeBuilder(serviceBuilder: SB): SVB
+  serviceVolumeBuilder(serviceBuilder: ServiceBuilder): ServiceVolumeBuilder
 }
 
-export class DefaultBuilderFactory<
-  C extends Config = Config,
-  CB extends ConfigBuilder = ConfigBuilder,
-  SB extends ServiceBuilder = ServiceBuilder,
-  SWB extends ServiceWithBuilder = ServiceWithBuilder,
-  SVB extends ServiceVolumeBuilder = ServiceVolumeBuilder
-> implements BuilderFactory<C, CB, SB, SWB, SVB> {
-  builder(config: C, options: ConfigBuilderOptions): CB {
-    return new ConfigBuilder(config, options, this) as CB
+export class DefaultBuilderFactory<C extends Config = Config> implements BuilderFactory<C> {
+  builder(config: C, options: ConfigBuilderOptions): ConfigBuilder {
+    return new ConfigBuilder(config, options, this)
   }
 
-  serviceBuilder(configBuilder: CB, name: string): SB {
-    return new ServiceBuilder(configBuilder, name) as SB
+  serviceBuilder(configBuilder: ConfigBuilder, name: string): ServiceBuilder {
+    return new ServiceBuilder(configBuilder, name)
   }
 
-  serviceWithBuilder(serviceBuilder: SB): SWB {
-    return new ServiceWithBuilder(serviceBuilder) as SWB
+  serviceWithBuilder(serviceBuilder: ServiceBuilder): ServiceWithBuilder {
+    return new ServiceWithBuilder(serviceBuilder)
   }
 
-  serviceVolumeBuilder(serviceBuilder: SB): SVB {
-    return new ServiceVolumeBuilder(serviceBuilder) as SVB
+  serviceVolumeBuilder(serviceBuilder: ServiceBuilder): ServiceVolumeBuilder {
+    return new ServiceVolumeBuilder(serviceBuilder)
   }
 }

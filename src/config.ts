@@ -1,22 +1,14 @@
 import { Config, ConfigBuilderItem, Network, Volume } from './builder'
 
-import { ServiceBuilder, ServiceWithBuilder, ServiceVolumeBuilder } from './service'
+import { ServiceBuilder } from './service'
 import { ConfigBuilderOptions } from './options'
 import { BuilderFactory } from './factory'
-import {} from './service/with'
-import {} from './service/volume'
 
 export class ConfigBuilder implements ConfigBuilderItem<Config> {
   constructor(
     public readonly item: Config,
     public readonly options: ConfigBuilderOptions,
-    public readonly factory: BuilderFactory<
-      Config,
-      ConfigBuilder,
-      ServiceBuilder,
-      ServiceWithBuilder,
-      ServiceVolumeBuilder
-    >
+    public readonly factory: BuilderFactory<Config>
   ) {}
 
   get() {

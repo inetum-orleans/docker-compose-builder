@@ -177,7 +177,7 @@ export interface ConfigBuilderChild<I, P> extends ConfigBuilderItem<I> {
 export function newBuilder(
   config?: Config,
   options: ConfigBuilderOptions = new DefaultConfigBuilderOptions(),
-  factory: (v: Version) => BuilderFactory<any, any, any, any, any> = defaultFactory
+  factory: (v: Version) => BuilderFactory<Config> = defaultFactory
 ): ConfigBuilder {
   if (!config) {
     config = { version: options.version }
