@@ -169,6 +169,18 @@ describe('ServiceBuilder', () => {
     })
   })
 
+  it('adds image section using custom name', () => {
+    const compose = serviceBuilder.image('custom').get()
+    expect(compose).toEqual({
+      version: Version.v20,
+      services: {
+        test: {
+          image: 'custom'
+        }
+      }
+    })
+  })
+
   it('adds image section using imageName option', () => {
     options.imageName = name => `custom-registry/${name}`
 
@@ -178,6 +190,20 @@ describe('ServiceBuilder', () => {
       services: {
         test: {
           image: 'custom-registry/test'
+        }
+      }
+    })
+  })
+
+  it('adds image section using imageName option and custom name', () => {
+    options.imageName = name => `custom-registry/${name}`
+
+    const compose = serviceBuilder.image('custom').get()
+    expect(compose).toEqual({
+      version: Version.v20,
+      services: {
+        test: {
+          image: 'custom-registry/custom'
         }
       }
     })

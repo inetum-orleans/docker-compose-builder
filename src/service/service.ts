@@ -50,8 +50,8 @@ export class ServiceBuilder extends AbstractBuilder<Service> implements ConfigBu
     return this
   }
 
-  image(): this {
-    this.item.image = this.options.imageName(this.name)
+  image(imageName: string = this.name): this {
+    this.item.image = this.options.imageName(imageName)
     return this
   }
 
