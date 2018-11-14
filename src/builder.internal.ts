@@ -1,5 +1,5 @@
 import mergeWith from 'lodash/mergeWith'
-import { ConfigItemContainer } from './builder'
+import { ConfigItemContainer, Extension, ExtensionConstructor, ExtensionSupport } from './builder'
 
 function mergeWithCustomizer(objValue: any, srcValue: any): any {
   if (Array.isArray(objValue)) {
@@ -13,7 +13,7 @@ function mergeWithCustomizer(objValue: any, srcValue: any): any {
   }
 }
 
-export abstract class AbstractBuilder<I> implements ConfigItemContainer<I> {
+export abstract class AbstractBuilder<I> implements ConfigItemContainer<I>, ExtensionSupport {
   readonly item: I
 
   protected constructor(item: I) {
@@ -28,5 +28,9 @@ export abstract class AbstractBuilder<I> implements ConfigItemContainer<I> {
   assign(item: Partial<I>): this {
     Object.assign(this.item, item)
     return this
+  }
+
+  ext<E extends Extension>(ext: ExtensionConstructor<E>): E {
+    return new ext(this)
   }
 }

@@ -5,9 +5,18 @@ import {
   ConfigBuilderOptions,
   DefaultBuilderFactory,
   DefaultConfigBuilderOptions,
+  Extension,
   ServiceBuilder,
   Version
 } from '../src'
+
+class TestExt implements Extension {
+  constructor(private parent: ConfigBuilder) {}
+
+  custom() {
+    this.parent.network('test', { external: true })
+  }
+}
 
 describe('ConfigBuilder', () => {
   let config: Config
@@ -49,6 +58,15 @@ describe('ConfigBuilder', () => {
     expect(configBuilder.get()).toEqual({
       version: Version.v20,
       networks: { test2: { external: false } }
+    })
+  })
+
+  it('supports ext', () => {
+    configBuilder.ext(TestExt).custom()
+
+    expect(configBuilder.get()).toEqual({
+      version: Version.v20,
+      networks: { test: { external: true } }
     })
   })
 

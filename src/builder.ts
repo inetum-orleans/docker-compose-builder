@@ -170,7 +170,17 @@ export interface ConfigItemContainer<I> {
   assign(item: Partial<I>): this
 }
 
-export interface ConfigBuilderItem<I> extends ConfigItemContainer<I> {
+export interface ExtensionConstructor<E extends Extension> {
+  new (builder: any): E
+}
+
+export interface Extension {}
+
+export interface ExtensionSupport {
+  ext<E extends Extension>(ext: ExtensionConstructor<E>): E
+}
+
+export interface ConfigBuilderItem<I> extends ConfigItemContainer<I>, ExtensionSupport {
   readonly options: ConfigBuilderOptions
   get(): Config
 }
