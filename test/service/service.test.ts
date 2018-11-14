@@ -195,6 +195,20 @@ describe('ServiceBuilder', () => {
     })
   })
 
+  it('adds image section using imageName option with rawImageName', () => {
+    options.imageName = name => `custom-registry/${name}`
+
+    const compose = serviceBuilder.image('custom', true).get()
+    expect(compose).toEqual({
+      version: Version.v20,
+      services: {
+        test: {
+          image: 'custom'
+        }
+      }
+    })
+  })
+
   it('adds image section using imageName option and custom name', () => {
     options.imageName = name => `custom-registry/${name}`
 
