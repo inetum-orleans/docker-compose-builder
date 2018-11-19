@@ -42,7 +42,37 @@ describe('ServiceWithBuilder', () => {
     })
   })
 
-  it('defaults with restart as false', () => {
+  it('defaults with restart as string', () => {
+    serviceWithBuilder.default('no')
+
+    expect(serviceBuilder.get()).toEqual({
+      version: '2.0',
+      services: {
+        test: {
+          build: 'test/Dockerfile',
+          image: 'test',
+          restart: 'no'
+        }
+      }
+    })
+  })
+
+  it('defaults with custom service name and image', () => {
+    serviceWithBuilder.default('no', 'service', 'image')
+
+    expect(serviceBuilder.get()).toEqual({
+      version: '2.0',
+      services: {
+        test: {
+          build: 'service/Dockerfile',
+          image: 'image',
+          restart: 'no'
+        }
+      }
+    })
+  })
+
+  it('defaults with restart as string', () => {
     serviceWithBuilder.default(false)
 
     expect(serviceBuilder.get()).toEqual({
