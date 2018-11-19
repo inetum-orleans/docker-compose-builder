@@ -4,16 +4,20 @@ import { Feature, isFeatureSupported, Version } from '../version'
 export class ServiceWithBuilder {
   constructor(private builder: ServiceBuilder) {}
 
-  default(restart: boolean = true): ServiceBuilder {
-    this.builder.build()
-    this.builder.image()
+  default(restart: boolean | string = true, name?: string, image?: string, rawName?: boolean): ServiceBuilder {
+    this.builder.build(name, rawName)
+    this.builder.image(image, rawName)
 
     if (isFeatureSupported(Feature.init, this.builder.get().version as Version)) {
       this.builder.init()
     }
 
     if (restart) {
-      this.builder.restart()
+      if (typeof restart === 'string') {
+        this.builder.restart(restart)
+      } else {
+        this.builder.restart()
+      }
     }
 
     return this.builder

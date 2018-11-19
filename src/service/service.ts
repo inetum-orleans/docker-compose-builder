@@ -45,13 +45,13 @@ export class ServiceBuilder extends AbstractBuilder<Service> implements ConfigBu
     return this.parent.factory.serviceVolumeBuilder(this)
   }
 
-  build(): this {
-    this.item.build = this.options.buildConfiguration(this.name)
+  build(name: string = this.name, rawName = false): this {
+    this.item.build = rawName ? name : this.options.buildConfiguration(name)
     return this
   }
 
-  image(imageName: string = this.name, rawImageName = false): this {
-    this.item.image = rawImageName ? imageName : this.options.imageName(imageName)
+  image(imageName: string = this.name, rawName = false): this {
+    this.item.image = rawName ? imageName : this.options.imageName(imageName)
     return this
   }
 
