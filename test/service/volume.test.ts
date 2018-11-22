@@ -117,6 +117,19 @@ describe('ServiceVolumeBuilder', () => {
     })
   })
 
+  it('add', () => {
+    serviceVolumeBuilder.add('/abc/path', '/etc/test')
+
+    expect(serviceBuilder.get()).toEqual({
+      version: '2.0',
+      services: {
+        test: {
+          volumes: ['/abc/path:/etc/test']
+        }
+      }
+    })
+  })
+
   it('relative with custom projectDir in options', () => {
     options.projectDir = '/project'
 

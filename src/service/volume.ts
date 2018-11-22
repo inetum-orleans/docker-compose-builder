@@ -24,6 +24,11 @@ export class ServiceVolumeBuilder {
     return this.builder
   }
 
+  add(filepath: string, containerDir: string, mountOptions: string = ''): ServiceBuilder {
+    this.addVolume(filepath, containerDir, mountOptions)
+    return this.builder
+  }
+
   named(volumeName: string, containerDir: string, mountOptions: string = ''): ServiceBuilder {
     this.addVolume(volumeName, containerDir, mountOptions)
 
