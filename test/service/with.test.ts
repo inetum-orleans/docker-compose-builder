@@ -43,7 +43,7 @@ describe('ServiceWithBuilder', () => {
   })
 
   it('defaults with restart as string', () => {
-    serviceWithBuilder.default('no')
+    serviceWithBuilder.default({ restart: 'no' })
 
     expect(serviceBuilder.get()).toEqual({
       version: '2.0',
@@ -58,7 +58,7 @@ describe('ServiceWithBuilder', () => {
   })
 
   it('defaults with custom service name and image', () => {
-    serviceWithBuilder.default('no', 'service', 'image')
+    serviceWithBuilder.default({ restart: 'no', name: 'service', image: 'image' })
 
     expect(serviceBuilder.get()).toEqual({
       version: '2.0',
@@ -72,8 +72,8 @@ describe('ServiceWithBuilder', () => {
     })
   })
 
-  it('defaults with restart as string', () => {
-    serviceWithBuilder.default(false)
+  it('defaults with restart as boolean', () => {
+    serviceWithBuilder.default({ restart: false })
 
     expect(serviceBuilder.get()).toEqual({
       version: '2.0',
