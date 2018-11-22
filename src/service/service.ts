@@ -50,6 +50,17 @@ export class ServiceBuilder extends AbstractBuilder<Service> implements ConfigBu
     return this
   }
 
+  arg(argOrKey: { [key: string]: EnvValue } | string, value?: EnvValue) {
+    if (typeof argOrKey === 'object') {
+      for (const key of Object.keys(argOrKey)) {
+        this.addArg(key, argOrKey[key])
+      }
+    } else {
+      this.addArg(argOrKey, value)
+    }
+    return this
+  }
+
   image(imageName: string = this.name, rawName = false): this {
     this.item.image = rawName ? imageName : this.options.imageName(imageName)
     return this
@@ -165,6 +176,32 @@ export class ServiceBuilder extends AbstractBuilder<Service> implements ConfigBu
       }
     } else {
       environment[key] = value === undefined ? null : value
+    }
+  }
+
+  private addArg(key: string, value?: EnvValue) {
+    if (!this.item.build) {
+      this.build()
+    }
+
+    if (typeof this.item.build === 'string') {
+      this.item.build = { dockerfile: this.item.build }
+    }
+
+    let build = this.item.build!
+
+    if (!build.args) {
+      build.args = []
+    }
+
+    if (Array.isArray(build.args)) {
+      if (value) {
+        build.args.push(`${key}=${value}`)
+      } else {
+        build.args.push(key)
+      }
+    } else {
+      build.args[key] = value === undefined ? null : value
     }
   }
 }

@@ -157,6 +157,77 @@ describe('ServiceBuilder', () => {
     })
   })
 
+  it('adds build args when build is an object with existing args', () => {
+    options.buildConfiguration = name => ({
+      context: '.docker',
+      dockerfile: `${name}/Dockerfile`,
+      args: ['yolo=42']
+    })
+
+    const compose = serviceBuilder
+      .build()
+      .arg('test', 'ABC')
+      .arg('test2', 'DEF')
+      .get()
+    expect(compose).toEqual({
+      version: Version.v20,
+      services: {
+        test: {
+          build: {
+            context: '.docker',
+            dockerfile: 'test/Dockerfile',
+            args: ['yolo=42', 'test=ABC', 'test2=DEF']
+          }
+        }
+      }
+    })
+  })
+
+  it('adds build args when build is an object with existing args as object', () => {
+    options.buildConfiguration = name => ({
+      context: '.docker',
+      dockerfile: `${name}/Dockerfile`,
+      args: { yolo: 42 }
+    })
+
+    const compose = serviceBuilder
+      .build()
+      .arg('test', 'ABC')
+      .arg('test2', 'DEF')
+      .get()
+    expect(compose).toEqual({
+      version: Version.v20,
+      services: {
+        test: {
+          build: {
+            context: '.docker',
+            dockerfile: 'test/Dockerfile',
+            args: { yolo: 42, test: 'ABC', test2: 'DEF' }
+          }
+        }
+      }
+    })
+  })
+
+  it('adds build args when build is a string', () => {
+    const compose = serviceBuilder
+      .build()
+      .arg('test', 'ABC')
+      .arg('test2', 'DEF')
+      .get()
+    expect(compose).toEqual({
+      version: Version.v20,
+      services: {
+        test: {
+          build: {
+            dockerfile: 'test/Dockerfile',
+            args: ['test=ABC', 'test2=DEF']
+          }
+        }
+      }
+    })
+  })
+
   it('adds image section', () => {
     const compose = serviceBuilder.image().get()
     expect(compose).toEqual({
