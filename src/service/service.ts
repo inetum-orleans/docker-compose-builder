@@ -66,6 +66,11 @@ export class ServiceBuilder extends AbstractBuilder<Service> implements ConfigBu
     return this
   }
 
+  entrypoint(entrypoint: string | string[]) {
+    this.item.entrypoint = entrypoint
+    return this
+  }
+
   init(): this {
     assertFeatureSupported(Feature.init, this.get().version as Version)
     this.item.init = true

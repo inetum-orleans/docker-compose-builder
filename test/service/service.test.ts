@@ -240,6 +240,30 @@ describe('ServiceBuilder', () => {
     })
   })
 
+  it('adds entrypoint', () => {
+    const compose = serviceBuilder.entrypoint('bla').get()
+    expect(compose).toEqual({
+      version: Version.v20,
+      services: {
+        test: {
+          entrypoint: 'bla'
+        }
+      }
+    })
+  })
+
+  it('adds entrypoint as array', () => {
+    const compose = serviceBuilder.entrypoint(['bla', 'bleh']).get()
+    expect(compose).toEqual({
+      version: Version.v20,
+      services: {
+        test: {
+          entrypoint: ['bla', 'bleh']
+        }
+      }
+    })
+  })
+
   it('adds image section using custom name', () => {
     const compose = serviceBuilder.image('custom').get()
     expect(compose).toEqual({
