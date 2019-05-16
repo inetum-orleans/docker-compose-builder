@@ -3,5 +3,6 @@
   "directory": "./src",
   "location": "all",
   "exclude": ".*\\.internal.ts",
-  "singleQuotes": true
+  "singleQuotes": true,
+  "noSemicolon": true
 }
