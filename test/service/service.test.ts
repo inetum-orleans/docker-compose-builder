@@ -140,6 +140,28 @@ describe('ServiceBuilder', () => {
     })
   })
 
+  it('adds labels', () => {
+    const compose = serviceBuilder
+      .label('traefik.enable', 'true')
+      .label('traefik.frontend.rule', 'Host:${DOCKER_DEVBOX_DOMAIN_PREFIX}.${DOCKER_DEVBOX_DOMAIN}')
+      .label('traefik.docker.network={DOCKER_DEVBOX_REVERSE_PROXY_NETWORK}')
+      .label('traefik.port', '80')
+      .get()
+    expect(compose).toEqual({
+      version: Version.v20,
+      services: {
+        test: {
+          labels: [
+            'traefik.enable=true',
+            'traefik.frontend.rule=Host:${DOCKER_DEVBOX_DOMAIN_PREFIX}.${DOCKER_DEVBOX_DOMAIN}',
+            'traefik.docker.network={DOCKER_DEVBOX_REVERSE_PROXY_NETWORK}',
+            'traefik.port=80'
+          ]
+        }
+      }
+    })
+  })
+
   it('adds build section using buildConfiguration option', () => {
     options.buildConfiguration = name => ({
       context: '.docker',

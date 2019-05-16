@@ -142,6 +142,22 @@ export class ServiceBuilder extends AbstractBuilder<Service> implements ConfigBu
     return this
   }
 
+  label(keyOrLabel: string, value?: string | number): this {
+    let label
+    if (value === undefined) {
+      label = keyOrLabel
+    } else {
+      label = keyOrLabel + '=' + value
+    }
+
+    if (!this.item.labels) {
+      this.item.labels = [label]
+    } else {
+      ;(this.item.labels as string[]).push(label)
+    }
+    return this
+  }
+
   private prependPortPrefix(portOrRange: string, portPrefix: string) {
     const portOrRangeSplit = portOrRange.split('-', 2)
 
